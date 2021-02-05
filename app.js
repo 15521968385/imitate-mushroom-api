@@ -45,9 +45,9 @@ app.get('/queryhomedatas', (req, res) => {
   select * from banner;
   select * from categroy;
   select * from categroy_base;
-  select *,price*discount*0.1 AS prices from goods where categroy_base_id=1 LIMIT 0,10;
-  select *,price*discount*0.1 AS prices from goods where categroy_base_id=2 LIMIT 0,10;
-  select *,price*discount*0.1 AS prices from goods where categroy_base_id=3 LIMIT 0,10;
+  select *,price*discount*0.1 AS prices from goods where categroy_base_id=1 LIMIT 0,4;
+  select *,price*discount*0.1 AS prices from goods where categroy_base_id=2 LIMIT 0,4;
+  select *,price*discount*0.1 AS prices from goods where categroy_base_id=3 LIMIT 0,4;
   `
   db.query(sql, (err, result) => {
     if (err) throw err;
@@ -73,7 +73,7 @@ app.get('/querybanneritem', (req, res) => {
 //根据索引查询商品分类数据()
 app.get('/querycategoodsbybase', (req, res) => {
   let sql = `
-  select *,price*discount*0.1 AS prices from goods where categroy_base_id=${req.query.categroy_id} limit  ${req.query.start},10;
+  select *,price*discount*0.1 AS prices from goods where categroy_base_id=${req.query.categroy_id} limit  ${req.query.start},4;
   `
   db.query(sql, (err, result) => {
     if (err) throw err;
@@ -93,6 +93,7 @@ app.get('/querygooddata', (req, res) => {
   select * from pinglun where goods_id=${req.query.good_id};
   SELECT * FROM canshu_title,goods_canshu WHERE goods_canshu.canshu_title_id=canshu_title.id AND goods_canshu.goods_id=${req.query.good_id};
   select *,price*discount*0.1 AS prices from goods where categroy_base_id=${req.query.categroybase_id};
+ 
   select * from guige where goods_id=${req.query.good_id};
   `
   db.query(sql, (err, result) => {
@@ -201,7 +202,7 @@ app.post('/updateselectall', (req, res) => {
   })
 })
 
-// 获取横分类数据
+// 获取分类数据
 app.get('/queryfenleiview', (req, res) => {
   let sql = `
   select * from categroy;
@@ -221,24 +222,7 @@ app.get('/queryfenleiview', (req, res) => {
 
 
 
-// girls
-app.get('/query', (req, res) => {
-  let sql = `
-  select title,content from biaoti,goods_biaoti where  biaoti.id=goods_biaoti.biaoti_id and goods_biaoti.good_id=1
-  `
-  db.query(sql, (err, result) => {
-    if (err) throw err;
 
-    // for(let item of  result){
-    //   console.log(item.biaoti_id);
-      
-      
-    // }
-    
-
-    res.send(result)
-  })
-})
 
 
 
