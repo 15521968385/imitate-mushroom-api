@@ -206,7 +206,7 @@ app.post('/updateselectall', (req, res) => {
 app.get('/queryfenleiview', (req, res) => {
   let sql = `
   select * from categroy;
-  select * from goods
+  select *,price*discount*0.1 AS prices from goods
   `
   db.query(sql, (err, result) => {
     if (err) throw err;
